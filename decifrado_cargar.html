@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+  <h1>Formulario para decifrar "asimetrico"</h1>
+
+  <h3>Texto cifrado:</h3>
+  <form action="nuevo_decifrar.php" method="POST" enctype="multipart/form-data"> 
+    <label for="textoCifrado">Selecciona el texto cifrado:</label>
+    <input type="file" id="textoCifrado" name="textoCifrado"><br><br>
+    <textarea name="contenidoArchivo" rows="4" cols="50" id="textareaArchivo"></textarea><br/>
+    <h3>Llave privada:</h3>
+    <label for="archivoKey">Privada.key:</label><br/>
+    <input type="file" accept=".key" name="archivoKey" id="archivoKey"/><br>
+    <textarea name="contenidoKey" rows="4" cols="50" id="textareaKey"></textarea><br/>
+    <input type="submit" value="Descifrar">
+  </form>
+  <script>
+    const archivoKeyInput = document.getElementById('archivoKey');
+    const textareaKey = document.getElementById('textareaKey');
+    const textoCifradoInput = document.getElementById('textoCifrado');
+    const textareaArchivo = document.getElementById('textareaArchivo');
+
+    archivoKeyInput.addEventListener('change', function() {
+      const file = archivoKeyInput.files[0];
+      const reader = new FileReader();
+
+      reader.onload = function(e) {
+        const contents = e.target.result;
+        textareaKey.value = contents;
+      };
+
+      reader.readAsText(file);
+    });
+
+    textoCifradoInput.addEventListener('change', function() {
+      const file = textoCifradoInput.files[0];
+      const reader = new FileReader();
+
+      reader.onload = function(e) {
+        const contents = e.target.result;
+        textareaArchivo.value = contents;
+      };
+
+      reader.readAsText(file);
+    });
+  </script>
+</body>
+</html>
